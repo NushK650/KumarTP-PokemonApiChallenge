@@ -73,17 +73,18 @@ async function getData(pokemon) {
       fav.src = "./assets/pokeball (1).png";
     }
 
-    shinyImg = data.sprites.front_shiny;
-   defaultImg = data.sprites.front_default;
+    shinyImg = data.sprites.other["official-artwork"].front_shiny;
+   defaultImg = data.sprites.other["official-artwork"].front_default;
    
    if(data.id < 650){
      element.innerText = `Element: ${data.types[0].type.name}`;
      pokemonName.innerText = data.forms[0].name.toUpperCase();
-     pokemonImg.src = data.sprites.front_default;
+     pokemonImg.src = data.sprites.other["official-artwork"].front_default;
      pokemonLocation.innerText = `Location: ${data2[0].location_area.name.replace(/-/g," ")}`;
      moves.innerText = `Moves: ${moveNames}`;
      abilities.innerText = `Abilities: ${abilitiesNames}`;
      evo.innerText = `Evolution Chain: ${evoChain.join(", ")}`;
+     shiny.classList.remove("hidden");
 
    } else{
     pokemonName.innerText = "Your Pokemon is not in our Pokedex!"
@@ -95,50 +96,20 @@ async function getData(pokemon) {
   
 }
 
-shiny.addEventListener("click",()=>{
-  if(pokemonImg.src == shinyImg)
-    {
-    pokemonImg.src = defaultImg
-    shiny.src = "./assets/star (1).png" 
-  }else{
-    pokemonImg.src = shinyImg;
-    shiny.src = "./assets/star.png";
-  }
-});
-
-getData(); 
-
-
-
-close.addEventListener("click", () => {
-  favoritesSection.classList.add("hidden");
-});
-
-search.addEventListener("keydown", async (event) => {
-  if (event.key === "Enter") {
-    let pokemon = search.value;
-    await getData(pokemon);
-    search.value = "";
-  }
-});
-
-random.addEventListener("click", () => {
-  let pokemon = Math.floor(Math.random() * 650);
-  getData(pokemon);
-});
-
 function getFavorites() {
   let favoritesList = getLocalStorage();
   info.innerHTML = "";
   console.log(favoritesList);
   favoritesList.map((fav) => {
     let option = document.createElement("div");
-
-    option.innerHTML = `<p class="flex">${fav}</p>`;
+option.classList.add("flex")
+option.classList.add("gap-5")
+option.classList.add("items-center")
+    option.innerHTML = `<p>${fav}</p>`;
 
     let deletebtn = document.createElement("button");
     deletebtn.type = "button";
-    deletebtn.className = "w-[10px] h-[10px] flex justify-center";
+    deletebtn.className = "w-[15px] h-[15px] flex justify-center";
     let deleteIcon = document.createElement("img");
     deleteIcon.src = "./assets/cancel.png";
     deleteIcon.alt = "Delete";
@@ -158,6 +129,51 @@ function getFavorites() {
     info.appendChild(option);
   });
 }
+
+shiny.addEventListener("click",()=>{
+  if(pokemonImg.src == shinyImg)
+    {
+    pokemonImg.src = defaultImg
+    shiny.src = "./assets/star (1).png" 
+  }else{
+    pokemonImg.src = shinyImg;
+    shiny.src = "./assets/star.png";
+  }
+});
+
+
+close.addEventListener("click", () => {
+  favoritesSection.classList.add("hidden");
+});
+
+
+search.addEventListener("keydown", async (event) => {
+  if (event.key === "Enter") {
+    let pokemon = search.value;
+    await getData(pokemon);
+    search.value = "";
+    let favorites = getLocalStorage();
+    if (!favorites.includes(pokemon)) {
+      fav.src = "./assets/pokeball.png";
+    } else if(favorites.includes(pokemon)){
+      fav.src = "./assets/pokeball (1).png";
+    }
+  }
+});
+
+
+random.addEventListener("click", () => {
+  let pokemon = Math.floor(Math.random() * 650);
+  getData(pokemon);
+  let favorites = getLocalStorage();
+ 
+    if (!favorites.includes(pokemon)) {
+      fav.src = "./assets/pokeball.png";
+    } else if(favorites.includes(pokemon)){
+      fav.src = "./assets/pokeball (1).png";
+    }
+});
+
 
 fav.addEventListener("click", async () => {
   let pokemon = pokemonName.innerText;

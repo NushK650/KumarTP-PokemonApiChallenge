@@ -710,11 +710,26 @@
   .mt-40 {
     margin-top: calc(var(--spacing) * 40);
   }
+  .mr-2 {
+    margin-right: calc(var(--spacing) * 2);
+  }
   .mr-5 {
     margin-right: calc(var(--spacing) * 5);
   }
   .mr-10 {
     margin-right: calc(var(--spacing) * 10);
+  }
+  .mr-20 {
+    margin-right: calc(var(--spacing) * 20);
+  }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
   }
   .ml-5 {
     margin-left: calc(var(--spacing) * 5);
@@ -815,11 +830,26 @@
   .h-\[10px\] {
     height: 10px;
   }
+  .h-\[15\] {
+    height: 15;
+  }
+  .h-\[15px\] {
+    height: 15px;
+  }
+  .h-\[20px\] {
+    height: 20px;
+  }
   .h-\[24\] {
     height: 24;
   }
   .h-\[24px\] {
     height: 24px;
+  }
+  .h-\[25px\] {
+    height: 25px;
+  }
+  .h-\[30px\] {
+    height: 30px;
   }
   .h-\[35px\] {
     height: 35px;
@@ -827,14 +857,8 @@
   .h-\[40px\] {
     height: 40px;
   }
-  .h-\[52px\] {
-    height: 52px;
-  }
   .h-\[60px\] {
     height: 60px;
-  }
-  .h-\[70px\] {
-    height: 70px;
   }
   .h-\[400px\] {
     height: 400px;
@@ -844,6 +868,18 @@
   }
   .h-\[500px\] {
     height: 500px;
+  }
+  .h-\[52px\] {
+    height: 52px;
+  }
+  .h-\[70px\] {
+    height: 70px;
+  }
+  .h-\[200px\] {
+    height: 200px;
+  }
+  .h-\[350px\] {
+    height: 350px;
   }
   .h-\[800px\] {
     height: 800px;
@@ -884,11 +920,23 @@
   .w-\[10px\] {
     width: 10px;
   }
+  .w-\[15px\] {
+    width: 15px;
+  }
+  .w-\[200px\] {
+    width: 200px;
+  }
+  .w-\[300px\] {
+    width: 300px;
+  }
   .w-\[35\] {
     width: 35;
   }
   .w-\[35px\] {
     width: 35px;
+  }
+  .w-\[400\] {
+    width: 400;
   }
   .w-\[400px\] {
     width: 400px;
@@ -1315,6 +1363,9 @@
   }
   .justify-items-stretch {
     justify-items: stretch;
+  }
+  .gap-1 {
+    gap: calc(var(--spacing) * 1);
   }
   .gap-5 {
     gap: calc(var(--spacing) * 5);
@@ -2325,6 +2376,126 @@
   }
   .transform-view {
     transform-box: view-box;
+  }
+  .max-xl\:flex {
+    @media (width < 80rem) {
+      display: flex;
+    }
+  }
+  .max-xl\:flex-col-reverse {
+    @media (width < 80rem) {
+      flex-direction: column-reverse;
+    }
+  }
+  .max-xl\:items-center {
+    @media (width < 80rem) {
+      align-items: center;
+    }
+  }
+  .max-xl\:justify-center {
+    @media (width < 80rem) {
+      justify-content: center;
+    }
+  }
+  .sm\:h-\[35px\] {
+    @media (width >= 40rem) {
+      height: 35px;
+    }
+  }
+  .sm\:h-\[400px\] {
+    @media (width >= 40rem) {
+      height: 400px;
+    }
+  }
+  .sm\:h-\[40px\] {
+    @media (width >= 40rem) {
+      height: 40px;
+    }
+  }
+  .sm\:w-\[400\] {
+    @media (width >= 40rem) {
+      width: 400;
+    }
+  }
+  .sm\:w-\[550px\] {
+    @media (width >= 40rem) {
+      width: 550px;
+    }
+  }
+  .sm\:gap-5 {
+    @media (width >= 40rem) {
+      gap: calc(var(--spacing) * 5);
+    }
+  }
+  .lg\:flex {
+    @media (width >= 64rem) {
+      display: flex;
+    }
+  }
+  .lg\:flex-col-reverse {
+    @media (width >= 64rem) {
+      flex-direction: column-reverse;
+    }
+  }
+  .lg\:justify-between {
+    @media (width >= 64rem) {
+      justify-content: space-between;
+    }
+  }
+  .xl\:mr-20 {
+    @media (width >= 80rem) {
+      margin-right: calc(var(--spacing) * 20);
+    }
+  }
+  .xl\:ml-5 {
+    @media (width >= 80rem) {
+      margin-left: calc(var(--spacing) * 5);
+    }
+  }
+  .xl\:flex {
+    @media (width >= 80rem) {
+      display: flex;
+    }
+  }
+  .xl\:h-\[00px\] {
+    @media (width >= 80rem) {
+      height: 00px;
+    }
+  }
+  .xl\:h-\[600px\] {
+    @media (width >= 80rem) {
+      height: 600px;
+    }
+  }
+  .xl\:h-\[800px\] {
+    @media (width >= 80rem) {
+      height: 800px;
+    }
+  }
+  .xl\:h-\[px\] {
+    @media (width >= 80rem) {
+      height: px;
+    }
+  }
+  .xl\:h-auto {
+    @media (width >= 80rem) {
+      height: auto;
+    }
+  }
+  .xl\:w-\[400px\] {
+    @media (width >= 80rem) {
+      width: 400px;
+    }
+  }
+  .xl\:flex-col {
+    @media (width >= 80rem) {
+      flex-direction: column;
+    }
+  }
+  .xl\:justify-between {
+    @media (width >= 80rem) {
+      justify-content: space-between;
+    }
   }
 }
 @keyframes spin {

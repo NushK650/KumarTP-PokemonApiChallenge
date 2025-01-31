@@ -1,58 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./src/output.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./src/output.css" />
     <title>Pokemon</title>
-</head>
-<body class="bg-[url('/assets/PokemonBackgroundMain.png')] bg-cover  bg-no-repeat min-h-screen">
-    <div class="flex justify-center gap-5 mt-5">
-        <img id="random" class="h-[35px]" src="./assets/Random2.png" alt="Random">
-        <input id="search" class="bg-white w-[450px] rounded-[50px] pl-5 h-[40px] border-2 border-black font-semibold" type="text" placeholder="Search">
-        <img id="fav" class="h-[35px]" src="./assets/pokeball.png" alt="Favorites">
-       <img id="favList" class="h-[35px]" src="./assets/pokedex.png" alt="Favorites List">
+  </head>
+  <body
+    class="bg-[url('/assets/PokemonBackgroundMain.png')] bg-cover bg-no-repeat min-h-screen"
+  >
+  <!-- navbar -->
+    <div class="flex justify-center gap-1 sm:gap-5 mt-5 mr-2 ml-2">
+      <img
+        id="random"
+        class="h-[25px] sm:h-[35px]"
+        src="./assets/Random2.png"
+        alt="Random"
+      />
+      <input
+        id="search"
+        class="bg-white w-[450px] rounded-[50px] pl-5 h-[30px] sm:h-[40px] border-2 border-black font-semibold"
+        type="text"
+        placeholder="Search"
+      />
+      <img
+        id="fav"
+        class="h-[25px] sm:h-[35px]"
+        src="./assets/pokeball.png"
+        alt="Favorites"
+      />
+      <img
+        id="favList"
+        class="h-[25px] sm:h-[35px]"
+        src="./assets/pokedex.png"
+        alt="Favorites List"
+      />
     </div>
-    <section id="favoritesSection" class=" hidden font-semibold bg-white border-2 border-black rounded-[50px] h-[800px] w-[400px] fixed col-start-1 ">
+    <!-- favorites section -->
+    <section
+      id="favoritesSection"
+      class="hidden font-semibold bg-white border-2 border-black rounded-[50px] xl:h-auto xl:w-[400px] fixed col-start-1"
+    >
       <div class="flex justify-between">
-          <img  id="close" class=" w-[35px] h-[35px] mt-5 ml-5" src="./assets/cancel.png" alt="Close">
-          <h2 class="mt-5 mr-10">POKEDEX</h2>
+        <img
+          id="close"
+          class="w-[35px] h-[35px] mt-5 ml-5"
+          src="./assets/cancel.png"
+          alt="Close"
+        />
+        <h2 class="mt-5 mr-10">POKEDEX</h2>
       </div>
-        <div class="flex">
-          <p id="info" class=" pl-5 pt-10"></p>
-        </div>
-      
-      
+      <div class="flex">
+        <p id="info" class="pl-5 pt-10 mb-5"></p>
+      </div>
     </section>
 
+    <!-- pokemon name div -->
     <div class="flex justify-center mt-40">
-        <h2 id="pokemonName" class="bg-white w-[550px] rounded-[20px] pl-5 h-[60px] border-2 border-black font-semibold text-center text-[20px] pt-3" >Pokemon</h2>
+      <h2
+        id="pokemonName"
+        class="bg-white w-[550px] rounded-[20px] pl-5 h-[60px] border-2 border-black font-semibold text-center text-[20px] pt-3"
+      >
+        Pokemon
+      </h2>
     </div>
 
-    <div class="flex justify-between">
-
-    <div class="bg-white w-[550px] rounded-[20px]  ml-5 pl-5 pt-5 h-[400px] overflow-hidden border-2 border-black font-semibold mt-20 grid gap-5">
+    <!-- image and information div -->
+    <div class=" xl:justify-between flex max-xl:flex-col-reverse max-xl:justify-center max-xl:items-center">
+      <div
+        class="bg-white w-[300px] sm:w-[550px] rounded-[20px] xl:ml-5 pl-5 pt-5 h-[400px] overflow-hidden border-2 border-black font-semibold mt-20 grid gap-5"
+      >
         <p id="pokemonLocation">Location:</p>
         <p id="element">Element:</p>
         <p id="evo">Evolution Chain:</p>
         <p id="abilities">Abilities:</p>
         <p id="moves" class="overflow-y-scroll pr-5">Moves:</p>
+      </div>
+
+      <div class="h-auto flex justify-center justify-items-center mt-20 xl:mr-20">
+        <img
+          class="h-[200px] sm:h-[400px]"
+          id="pokemonImg"
+          src=""
+        />
+        <img
+          id="shiny"
+          class="h-[70px] hidden"
+          src="./assets/star (1).png"
+          alt="shiny"
+        />
+      </div>
     </div>
 
-    <div class="mt-5" >
-        <img class="h-[400px] w-auto" id="pokemonImg" > 
-    </div>
-<div>
-    <img id="shiny" class="h-[70px]" src="./assets/star (1).png" alt="shiny">
-</div>
-        
-        
-    </div>
-
-
-    
-
-<script type="module" src="./app.js"></script>
-</body>
-
-</html> 
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
