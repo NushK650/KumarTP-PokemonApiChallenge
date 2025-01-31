@@ -4,7 +4,7 @@ import {
   removeFromLocalStorage,
 } from "./localStorage.js";
 
-const shiny = document.getElementById("shiny")
+const shiny = document.getElementById("shiny");
 const search = document.getElementById("search");
 const pokemonName = document.getElementById("pokemonName");
 const pokemonLocation = document.getElementById("pokemonLocation");
@@ -27,6 +27,18 @@ async function getData(pokemon) {
     const response = await fetch(
       `https://pokeapi.co/api/v2/pokemon/${pokemon}/`
     );
+    if (!response.ok) {
+      pokemonName.innerText = "Try Again!";
+      element.innerText = `Element: `;
+      pokemonImg.src = "";
+      pokemonLocation.innerText = `Location: `;
+      moves.innerText = `Moves: `;
+      abilities.innerText = `Abilities: `;
+      evo.innerText = `Evolution Chain: `;
+      shiny.classList.add("hidden");
+
+      return null;
+    }
     const data = await response.json();
 
     const response2 = await fetch(data.location_area_encounters);
@@ -38,10 +50,8 @@ async function getData(pokemon) {
 
     const evolutionResponse = await fetch(evolutionUrl);
     const evolutionData = await evolutionResponse.json();
-
     let evoStage = evolutionData.chain;
     let evoChain = [evoStage.species.name];
-
     for (let i = 0; i < evoStage.evolves_to.length; i++) {
       evoChain.push(evoStage.evolves_to[i].species.name);
       for (let j = 0; j < evoStage.evolves_to[i].evolves_to.length; j++) {
@@ -69,83 +79,84 @@ async function getData(pokemon) {
 
     if (!favorites.includes(pokemon)) {
       fav.src = "./assets/pokeball.png";
-    } else if(favorites.includes(pokemon)){
+    } else if (favorites.includes(pokemon)) {
       fav.src = "./assets/pokeball (1).png";
     }
 
     shinyImg = data.sprites.other["official-artwork"].front_shiny;
-   defaultImg = data.sprites.other["official-artwork"].front_default;
-   
-   if(data.id < 650){
-     element.innerText = `Element: ${data.types[0].type.name}`;
-     pokemonName.innerText = data.forms[0].name.toUpperCase();
-     pokemonImg.src = data.sprites.other["official-artwork"].front_default;
-     pokemonLocation.innerText = `Location: ${data2[0].location_area.name.replace(/-/g," ")}`;
-     moves.innerText = `Moves: ${moveNames}`;
-     abilities.innerText = `Abilities: ${abilitiesNames}`;
-     evo.innerText = `Evolution Chain: ${evoChain.join(", ")}`;
-     shiny.classList.remove("hidden");
+    defaultImg = data.sprites.other["official-artwork"].front_default;
 
-   } else{
-    pokemonName.innerText = "Your Pokemon is not in our Pokedex!"
-   }
-    
+    if (data.id < 650) {
+      element.innerText = `Element: ${data.types[0].type.name}`;
+      pokemonName.innerText = data.forms[0].name.toUpperCase();
+      pokemonImg.src = data.sprites.other["official-artwork"].front_default;
+      pokemonLocation.innerText =
+        data2.length == 0
+          ? "Location: N/A"
+          : `Location: ${data2[0].location_area.name.replace(/-/g, " ")}`;
+      moves.innerText = `Moves: ${moveNames}`;
+      abilities.innerText = `Abilities: ${abilitiesNames}`;
+      if (evoStage.evolves_to.length == 0) {
+        evo.innerText = "Evolution Path: N/A";
+      } else {
+        evo.innerText = `Evolution Chain: ${evoChain.join(", ")}`;
+      }
+      shiny.classList.remove("hidden");
+    } else {
+      pokemonName.innerText = "Your Pokemon is not in our Pokedex!";
+    }
   } catch (error) {
     console.log("Error", error.message);
   }
-  
 }
 
 function getFavorites() {
   let favoritesList = getLocalStorage();
   info.innerHTML = "";
-  console.log(favoritesList);
-  favoritesList.map((fav) => {
-    let option = document.createElement("div");
-option.classList.add("flex")
-option.classList.add("gap-5")
-option.classList.add("items-center")
-    option.innerHTML = `<p>${fav}</p>`;
 
-    let deletebtn = document.createElement("button");
-    deletebtn.type = "button";
-    deletebtn.className = "w-[15px] h-[15px] flex justify-center";
+  favoritesList.map((fav) => {
+    let div = document.createElement("div");
+    div.className = "flex gap-2 items-center"
+
+
+    
+    let p = document.createElement("p");
+    p.innerText = fav;
+    
     let deleteIcon = document.createElement("img");
+    deleteIcon.className = "w-[15px] h-[15px]";
     deleteIcon.src = "./assets/cancel.png";
     deleteIcon.alt = "Delete";
 
-    deletebtn.appendChild(deleteIcon);
-
-    deletebtn.addEventListener("click", function () {
+    deleteIcon.addEventListener("click", function () {
       removeFromLocalStorage(fav);
-      option.remove();
+      div.remove();
     });
 
-    option.addEventListener("click", function () {
+    p.addEventListener("click", function () {
       getData(fav);
     });
 
-    option.appendChild(deletebtn);
-    info.appendChild(option);
+  
+     div.appendChild(deleteIcon);
+     div.appendChild(p);
+    info.appendChild(div);
   });
 }
 
-shiny.addEventListener("click",()=>{
-  if(pokemonImg.src == shinyImg)
-    {
-    pokemonImg.src = defaultImg
-    shiny.src = "./assets/star (1).png" 
-  }else{
+shiny.addEventListener("click", () => {
+  if (pokemonImg.src == shinyImg) {
+    pokemonImg.src = defaultImg;
+    shiny.src = "./assets/star (1).png";
+  } else {
     pokemonImg.src = shinyImg;
     shiny.src = "./assets/star.png";
   }
 });
 
-
 close.addEventListener("click", () => {
   favoritesSection.classList.add("hidden");
 });
-
 
 search.addEventListener("keydown", async (event) => {
   if (event.key === "Enter") {
@@ -155,25 +166,23 @@ search.addEventListener("keydown", async (event) => {
     let favorites = getLocalStorage();
     if (!favorites.includes(pokemon)) {
       fav.src = "./assets/pokeball.png";
-    } else if(favorites.includes(pokemon)){
+    } else if (favorites.includes(pokemon)) {
       fav.src = "./assets/pokeball (1).png";
     }
   }
 });
 
-
 random.addEventListener("click", () => {
   let pokemon = Math.floor(Math.random() * 650);
   getData(pokemon);
   let favorites = getLocalStorage();
- 
-    if (!favorites.includes(pokemon)) {
-      fav.src = "./assets/pokeball.png";
-    } else if(favorites.includes(pokemon)){
-      fav.src = "./assets/pokeball (1).png";
-    }
-});
 
+  if (!favorites.includes(pokemon)) {
+    fav.src = "./assets/pokeball.png";
+  } else if (favorites.includes(pokemon)) {
+    fav.src = "./assets/pokeball (1).png";
+  }
+});
 
 fav.addEventListener("click", async () => {
   let pokemon = pokemonName.innerText;
@@ -184,6 +193,7 @@ fav.addEventListener("click", async () => {
     saveToLocalStorageByName(pokemon);
   }
   await getData(pokemon);
+  getFavorites();
 });
 
 favList.addEventListener("click", () => {
