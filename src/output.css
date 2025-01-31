@@ -815,14 +815,29 @@
   .h-\[10px\] {
     height: 10px;
   }
+  .h-\[24\] {
+    height: 24;
+  }
+  .h-\[24px\] {
+    height: 24px;
+  }
   .h-\[35px\] {
     height: 35px;
   }
   .h-\[40px\] {
     height: 40px;
   }
+  .h-\[52px\] {
+    height: 52px;
+  }
   .h-\[60px\] {
     height: 60px;
+  }
+  .h-\[70px\] {
+    height: 70px;
+  }
+  .h-\[400px\] {
+    height: 400px;
   }
   .h-\[450px\] {
     height: 450px;
@@ -832,6 +847,9 @@
   }
   .h-\[800px\] {
     height: 800px;
+  }
+  .h-\[4500px\] {
+    height: 4500px;
   }
   .h-\[px\] {
     height: px;
@@ -1385,6 +1403,12 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+  }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .overflow-y-scroll {
+    overflow-y: scroll;
   }
   .scroll-auto {
     scroll-behavior: auto;
