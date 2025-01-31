@@ -83,11 +83,19 @@ async function getData(pokemon) {
       fav.src = "./assets/pokeball (1).png";
     }
 
+    
+  
+
     shinyImg = data.sprites.other["official-artwork"].front_shiny;
     defaultImg = data.sprites.other["official-artwork"].front_default;
 
     if (data.id < 650) {
-      element.innerText = `Element: ${data.types[0].type.name}`;
+   let elementArr = [];
+      for (let i = 0; i < data.types.length; i++) {
+        elementArr.push(data.types[i].type.name);
+    }
+    element.innerText = `Element: ${elementArr.join(', ')}`;
+     
       pokemonName.innerText = data.forms[0].name.toUpperCase();
       pokemonImg.src = data.sprites.other["official-artwork"].front_default;
       pokemonLocation.innerText =
@@ -160,7 +168,7 @@ close.addEventListener("click", () => {
 
 search.addEventListener("keydown", async (event) => {
   if (event.key === "Enter") {
-    let pokemon = search.value;
+    let pokemon = search.value.replace(" ","-" );
     await getData(pokemon);
     search.value = "";
     let favorites = getLocalStorage();
